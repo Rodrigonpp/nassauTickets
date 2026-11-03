@@ -1,0 +1,14 @@
+import React from 'react'
+
+const SelecaoPerfil = () => {
+  return (
+    <div>
+      <h1 className='painel-title'>Selecione o perfil que deseja acessar:</h1>
+      <div className="selecao-perfil">
+        <a href="/atendente/login">Atendente</a>
+      </div>
+    </div>
+  )
+}
+
+export default SelecaoPerfil
