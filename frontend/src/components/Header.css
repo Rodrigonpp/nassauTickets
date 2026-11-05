@@ -5,6 +5,7 @@
   padding: 5px 1.5rem;
   justify-content: space-between;
   border-bottom: 1px solid #cbd6de;
+  flex-shrink: 0; 
 }
 
 .logo {

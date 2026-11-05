@@ -17,6 +17,7 @@ const Header = () => {
           <img src={greenCheck} alt="Sistema conectado" />
           Sistema conectado
         </span>
+        {/* Pode ser alterado com um contexto para atualizar de acordo */}
         <p>Escolha do atendimento</p>
       </div>
     </header>
