@@ -10,3 +10,6 @@ class RegraNegocioError(Exception):
 
 class TransicaoInvalidaError(RegraNegocioError):
     status_code = 409
+
+class ForaDoExpedienteError(RegraNegocioError):
+    status_code = 403

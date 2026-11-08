@@ -21,6 +21,10 @@ class Config:
     JWT_SECRET_KEY = os.getenv("JWT_SECRET")
     JWT_EXPIRE_MINUTES = int(os.getenv("JWT_EXPIRE_MINUTES", "60"))
 
+    EXPEDIENTE_INICIO = 7   # 07:00
+    EXPEDIENTE_FIM = 17     # 17:00
+    FUSO_HORARIO = "America/Recife"
+
     # Documentação da API (OpenAPI/Swagger)
     API_TITLE = "NassauTickets API"
     API_VERSION = "v1"

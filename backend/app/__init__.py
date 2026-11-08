@@ -11,13 +11,16 @@ def create_app(config_class=Config):
 
     db.init_app(app)
     migrate.init_app(app, db)
-    
+
     from app import models  # noqa: F401
-    
+
     api = Api(app)
 
     from app.routers.health import blp as health_blp
+    from app.routers.senhas import blp as senhas_blp
+
     api.register_blueprint(health_blp)
+    api.register_blueprint(senhas_blp)
 
     from app.core.exceptions import RegraNegocioError
 

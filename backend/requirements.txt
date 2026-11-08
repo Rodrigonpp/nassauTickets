@@ -13,3 +13,4 @@ argon2-cffi
 python-dotenv
 gunicorn
 pytest
+tzdata
