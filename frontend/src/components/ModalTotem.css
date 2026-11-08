@@ -1,0 +1,136 @@
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleUp {
+  from {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 20px;
+  animation: fadeIn 0.2s ease-out;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(3px);
+}
+
+.modal-container {
+  background-color: #fff;
+  width: 100%;
+  max-width: 450px;
+  padding: 2rem;
+  border-radius: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  animation: scaleUp 0.2s ease-out;
+  box-shadow: 3px 5px 15px rgba(0, 0, 0, 0.2);
+  gap: 5px;
+}
+
+.modal-icon {
+  height: 5rem;
+  width: 5rem;
+  border-radius: 1rem;
+  padding: 10px;
+  flex-shrink: 0;
+  margin-bottom: 20px;
+}
+
+.modal-icon-prioritario {
+  background-color: #fce9dc;
+}
+
+.modal-icon-geral {
+  background-color: #e4f1fa;
+}
+
+.modal-icon-exames {
+  background-color: #efe8fa;
+}
+
+.modal-container span {
+  font-weight: bold;
+}
+
+.modal-container h3 {
+  font-weight: bolder;
+  font-size: 1.6rem;
+  letter-spacing: 0.5px;
+}
+
+.modal-container span,
+.modal-container p {
+  color: #536475;
+  font-size: 0.9rem;
+  margin-bottom: 5px;
+}
+
+.modal-container p {
+  margin-bottom: 1rem;
+}
+
+.buttons {
+  display: flex;
+  width: 100%;
+  gap: 10px;
+}
+
+.modal-container button {
+  flex: 1;
+  padding: 10px 12px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: 0.2s;
+  font-weight: bold;
+}
+
+.return {
+  background-color: transparent;
+  border: 1px solid #ccc;
+}
+
+.return:hover {
+  background-color: #f0f0f0;
+}
+
+.confirm {
+  color: #fff;
+  border: none;
+  opacity: 0.9;
+}
+
+.confirm:hover {
+  opacity: 1;
+}
+
+.botao-prioritario {
+  background-color: #8a3d12;
+}
+
+.botao-geral {
+  background-color: #185e8a;
+}
+
+.botao-exames {
+  background-color: #5c3a8a;
+}
