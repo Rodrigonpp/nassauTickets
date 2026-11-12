@@ -134,3 +134,31 @@
 .botao-exames {
   background-color: #5c3a8a;
 }
+
+.concluir {
+  flex: 1;
+  width: 100%;
+  color: #fff;
+}
+
+.modal-container .senha {
+  font-size: 2.5rem;
+  font-weight: 900;
+}
+
+.modal-container .senha-prioritario {
+  color: #8a3d12;
+}
+
+.modal-container .senha-geral {
+  color: #185e8a;
+}
+
+.modal-container .senha-exames {
+  color: #5c3a8a;
+}
+
+.modal-container .orientacao {
+  font-weight: 300;
+  margin-bottom: 10px;
+}

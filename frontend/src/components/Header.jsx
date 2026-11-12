@@ -1,12 +1,21 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import greenCheck from "../assets/check_verde.svg";
 import "./Header.css";
 
 const Header = () => {
+  const navigate = useNavigate();
+
   return (
     <header id="Header">
       <div className="logo">
-        <h1>N</h1>
+        <h1
+          onClick={() => {
+            navigate("/");
+          }}
+        >
+          N
+        </h1>
         <div className="presentation">
           <h2>nassauTickets</h2>
           <p>Laboratório de Análises Clínicas</p>
