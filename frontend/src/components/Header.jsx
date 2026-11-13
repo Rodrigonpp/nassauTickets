@@ -1,10 +1,13 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useNavigation } from "../contexts/NavigationContext";
 import greenCheck from "../assets/check_verde.svg";
 import "./Header.css";
 
 const Header = () => {
   const navigate = useNavigate();
+
+  const { currentScreen } = useNavigation();
 
   return (
     <header id="Header">
@@ -27,7 +30,8 @@ const Header = () => {
           Sistema conectado
         </span>
         {/* Pode ser alterado com um contexto para atualizar de acordo */}
-        <p>Escolha do atendimento</p>
+        {currentScreen === "home" && <p>Central de acesso</p>}
+        {currentScreen === "totem" && <p>Escolha do atendimento</p>}
       </div>
     </header>
   );
