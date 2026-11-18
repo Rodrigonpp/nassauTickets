@@ -1,13 +1,14 @@
 import React, { useState } from "react";
+
+// Assets
+import info from "../../assets/info.svg";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import ModalTotem from "../../components/ModalTotem";
 import servicos from "./servicos";
 
-// Assets
-import info from "../../assets/info.svg";
-
 import "./TotemHome.css";
+import TipoDeSenha from "../../components/TipoDeSenha";
 
 const TotemHome = () => {
   const [modalState, setModalState] = useState(null);
@@ -42,10 +43,7 @@ const TotemHome = () => {
               <div
                 className={`informacoes-atendimento informacoes-${servico.id}`}
               >
-                <span className="tipo">
-                  <img src={servico.img} alt={`${servico.title}`} />
-                  {servico.type}
-                </span>
+                <TipoDeSenha tipo={servico.id} />
                 <h2 className="tipo-title">{servico.title}</h2>
                 <p className="subtitle">{servico.description}</p>
               </div>

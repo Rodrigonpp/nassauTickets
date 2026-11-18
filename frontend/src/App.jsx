@@ -5,24 +5,27 @@ import LoginAtendente from "./apps/atendente/LoginAtendente";
 import Home from "./pages/Home";
 import "./App.css";
 import { NavigationProvider } from "./contexts/NavigationContext";
+import { ThemeProvider } from "./contexts/ThemeContext";
 
 function App() {
   return (
     <BrowserRouter>
       <NavigationProvider>
-        <Routes>
-          {/* HOME */}
-          <Route path="/" element={<Home />} />
+        <ThemeProvider>
+          <Routes>
+            {/* HOME */}
+            <Route path="/" element={<Home />} />
 
-          {/* PAINEL */}
-          <Route path="/painel" element={<PainelPrincipal />} />
+            {/* PAINEL */}
+            <Route path="/painel" element={<PainelPrincipal />} />
 
-          {/* TOTEM */}
-          <Route path="/totem" element={<TotemHome />} />
+            {/* TOTEM */}
+            <Route path="/totem" element={<TotemHome />} />
 
-          {/* ATENDENTE */}
-          <Route path="/atendente/login" element={<LoginAtendente />} />
-        </Routes>
+            {/* ATENDENTE */}
+            <Route path="/atendente/login" element={<LoginAtendente />} />
+          </Routes>
+        </ThemeProvider>
       </NavigationProvider>
     </BrowserRouter>
   );
