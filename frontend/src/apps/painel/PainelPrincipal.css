@@ -20,9 +20,10 @@
 
 .situacao {
   display: flex;
+  width: fit-content;
+  align-items: center;
   gap: 0.8rem;
   background-color: #fff1d6;
-  width: fit-content;
   color: #a35700;
   font-size: 18px;
   padding: 10px 20px;

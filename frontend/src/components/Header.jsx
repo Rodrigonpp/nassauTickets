@@ -10,7 +10,6 @@ const Header = () => {
 
   const { currentScreen } = useNavigation();
   const { theme } = useTheme();
-  console.log(theme);
 
   return (
     <header id="Header" className={theme}>
