@@ -1,15 +1,29 @@
 import React, { useState } from "react";
 import "./ModalTotem.css";
 import servicos from "../apps/totem/servicos";
+import { useEmitirSenha } from "../hooks/useEmitirSenha";
 
 const ModalTotem = ({ modalState, setModalState }) => {
   const servicoAtual = servicos.find((servico) => servico.id === modalState);
   // 1 - Confirmar retirada de senha | 2 - Visualizando a senha
   const [etapa, setEtapa] = useState(1);
 
+  const { senha, dadosOk, loading, erro, emitirSenha, limparSenha } =
+    useEmitirSenha();
+
   const fecharModal = () => {
     setModalState(null);
     setEtapa(1);
+    limparSenha();
+  };
+
+  const handleGerarSenha = async () => {
+    const tipoSenha = servicoAtual.type;
+    const resposta = await emitirSenha(tipoSenha);
+
+    if (resposta) {
+      setEtapa(2);
+    }
   };
 
   return (
@@ -31,9 +45,16 @@ const ModalTotem = ({ modalState, setModalState }) => {
               <span>Confirmar atendimento</span>
               <h3>{servicoAtual.title}</h3>
               <p>{servicoAtual.description}</p>
+
+              {erro && (
+                <p className="erro-mensagem" role="alert">
+                  {erro}
+                </p>
+              )}
               <div className="buttons">
                 <button
                   className="return"
+                  disabled={loading}
                   onClick={() => {
                     fecharModal();
                   }}
@@ -42,9 +63,10 @@ const ModalTotem = ({ modalState, setModalState }) => {
                 </button>
                 <button
                   className={`confirm botao-${servicoAtual.id}`}
-                  onClick={() => setEtapa(2)}
+                  disabled={loading}
+                  onClick={handleGerarSenha}
                 >
-                  Retirar senha
+                  {loading ? "Gerando..." : "Retirar senha"}
                 </button>
               </div>
             </>
@@ -53,7 +75,9 @@ const ModalTotem = ({ modalState, setModalState }) => {
             <>
               <span>SENHA EMITIDA</span>
               <h3>Sua senha é:</h3>
-              <p className={`senha senha-${servicoAtual.id}`}>XXXX</p>
+              <p className={`senha senha-${servicoAtual.id}`}>
+                {dadosOk && senha ? senha.numero_senha : "----"}
+              </p>
               <span className="orientacao">Aguarde a chamada no painel</span>
               <button
                 className={`concluir botao-${servicoAtual.id}`}

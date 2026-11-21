@@ -157,6 +157,7 @@
   border: none;
   opacity: 0.9;
   transition: 0.2s;
+  cursor: pointer;
 }
 
 .submit:hover {
