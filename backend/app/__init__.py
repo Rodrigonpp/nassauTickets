@@ -2,8 +2,10 @@ from flask import Flask
 from flask_smorest import Api
 from flask_cors import CORS
 
+from app.extensions import db, jwt, migrate
 from app.core.config import Config
 from app.extensions import db, migrate
+    
 
 
 def create_app(config_class=Config):
@@ -18,6 +20,7 @@ def create_app(config_class=Config):
 
     db.init_app(app)
     migrate.init_app(app, db)
+    jwt.init_app(app)
 
     from app import models  # noqa: F401
 
@@ -27,7 +30,9 @@ def create_app(config_class=Config):
     from app.routers.senhas import blp as senhas_blp
     from app.routers.atendimentos import blp as atendimentos_blp
     from app.routers.painel import blp as painel_blp
+    from app.routers.auth import blp as auth_blp
     
+    api.register_blueprint(auth_blp)
     api.register_blueprint(painel_blp)
     api.register_blueprint(atendimentos_blp)
     api.register_blueprint(health_blp)

@@ -13,6 +13,7 @@ class TestConfig(Config):
         "poolclass": StaticPool,
         "connect_args": {"check_same_thread": False},
     }
+    EXPEDIENTE_LIVRE = False  # testes não dependem do .env
 
 
 @pytest.fixture()

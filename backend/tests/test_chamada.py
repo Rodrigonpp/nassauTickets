@@ -2,7 +2,7 @@ from datetime import datetime
 
 import pytest
 
-from app.core.exceptions import FilaVaziaError
+from app.core.exceptions import FilaVaziaError, ForaDoExpedienteError
 from app.models import TipoSenha
 from app.services.chamada_service import ChamadaService, ordem_de_busca
 from app.services.emissao_service import EmissaoService
@@ -46,5 +46,12 @@ def test_fila_so_com_sg(app):
 
 
 def test_fila_vazia(app):
+    svc = ChamadaService(agora=lambda: datetime(2026, 11, 9, 8, 5))
     with pytest.raises(FilaVaziaError):
-        ChamadaService().chamar_proximo(None, None)
+        svc.chamar_proximo(None, None)
+
+
+def test_chamada_bloqueada_fora_do_expediente(app):
+    svc = ChamadaService(agora=lambda: datetime(2026, 11, 9, 20, 0))
+    with pytest.raises(ForaDoExpedienteError):
+        svc.chamar_proximo(None, None)

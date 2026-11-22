@@ -15,7 +15,7 @@ class SenhaSchema(Schema):
     data_hora_emissao = fields.DateTime()
 
 class ChamarSchema(Schema):
-    usuario_id = fields.Integer(required=True)
+   
     guiche_id = fields.Integer(required=True)
 
 class AcaoSenhaSchema(Schema):

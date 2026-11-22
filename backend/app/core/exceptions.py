@@ -22,3 +22,10 @@ class FilaVaziaError(RegraNegocioError):
 
 class AtendenteOcupadoError(RegraNegocioError):
     status_code = 409
+
+class NaoAutenticadoError(RegraNegocioError):
+    status_code = 401
+
+
+class AcessoNegadoError(RegraNegocioError):
+    status_code = 403

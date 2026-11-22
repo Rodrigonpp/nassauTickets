@@ -1,4 +1,5 @@
 import os
+from datetime import timedelta
 
 from dotenv import load_dotenv
 from sqlalchemy.engine import URL
@@ -20,10 +21,13 @@ class Config:
 
     JWT_SECRET_KEY = os.getenv("JWT_SECRET")
     JWT_EXPIRE_MINUTES = int(os.getenv("JWT_EXPIRE_MINUTES", "60"))
+    JWT_ACCESS_TOKEN_EXPIRES = timedelta(minutes=JWT_EXPIRE_MINUTES)
 
     EXPEDIENTE_INICIO = 7   # 07:00
     EXPEDIENTE_FIM = 17     # 17:00
     FUSO_HORARIO = "America/Recife"
+    # true = ignora o horário de expediente (só para demonstração)
+    EXPEDIENTE_LIVRE = os.getenv("EXPEDIENTE_LIVRE", "false").lower() == "true"
 
     # Documentação da API (OpenAPI/Swagger)
     API_TITLE = "NassauTickets API"
@@ -33,3 +37,14 @@ class Config:
     OPENAPI_JSON_PATH = "openapi.json"
     OPENAPI_SWAGGER_UI_PATH = "/docs"
     OPENAPI_SWAGGER_UI_URL = "https://cdn.jsdelivr.net/npm/swagger-ui-dist/"
+    API_SPEC_OPTIONS = {
+        "components": {
+            "securitySchemes": {
+                "bearerAuth": {
+                    "type": "http",
+                    "scheme": "bearer",
+                    "bearerFormat": "JWT",
+                }
+            }
+        }
+    }
