@@ -26,7 +26,9 @@ def create_app(config_class=Config):
     from app.routers.health import blp as health_blp
     from app.routers.senhas import blp as senhas_blp
     from app.routers.atendimentos import blp as atendimentos_blp
+    from app.routers.painel import blp as painel_blp
     
+    api.register_blueprint(painel_blp)
     api.register_blueprint(atendimentos_blp)
     api.register_blueprint(health_blp)
     api.register_blueprint(senhas_blp)

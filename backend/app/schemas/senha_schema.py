@@ -17,3 +17,10 @@ class SenhaSchema(Schema):
 class ChamarSchema(Schema):
     usuario_id = fields.Integer(required=True)
     guiche_id = fields.Integer(required=True)
+
+class AcaoSenhaSchema(Schema):
+    usuario_id = fields.Integer(load_default=None)
+
+
+class ChamadaDetalheSchema(SenhaSchema):
+    id = fields.Integer()
