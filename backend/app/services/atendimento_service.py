@@ -1,8 +1,11 @@
+from datetime import timedelta
+
 from app.core.exceptions import RegraNegocioError
 from app.extensions import db
 from app.models import AtendimentoAuditoria, Senha, StatusSenha
 from app.services import relogio
 from app.services.maquina_estados import transitar
+from app.services.tm import duracao_simulada_min
 
 S = StatusSenha
 
@@ -46,7 +49,10 @@ class AtendimentoService:
         senha, aud = self._carregar(senha_id)
         try:
             transitar(senha, S.ATENDIDA, usuario_id)
-            aud.horario_finalizacao_atendimento = self.agora()
+            inicio = aud.horario_inicio_atendimento or self.agora()
+            aud.horario_finalizacao_atendimento = inicio + timedelta(
+                minutes=duracao_simulada_min(senha.tipo_senha)
+            )
             db.session.commit()
             return senha
         except Exception:
@@ -62,4 +68,3 @@ class AtendimentoService:
         except Exception:
             db.session.rollback()
             raise
-        
