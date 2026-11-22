@@ -5,6 +5,8 @@ from app.extensions import db
 from app.models import EstadoFila, Guiche, Perfil, Usuario
 
 ph = PasswordHasher()
+SENHA_ATENDENTE = "Atend@123"
+SENHA_GESTOR = "Gestor@123"
 
 
 def seed():
@@ -14,20 +16,24 @@ def seed():
             print("Seed já aplicado. Nada a fazer.")
             return
 
-        db.session.add_all([
-            Usuario(nome="Gestor Teste", matricula="G001", login="gestor",
-                    senha_hash=ph.hash("Gestor@123"), perfil=Perfil.GESTOR),
-            Usuario(nome="Atendente Um", matricula="A001", login="atendente1",
-                    senha_hash=ph.hash("Atend@123"), perfil=Perfil.ATENDENTE),
-            Usuario(nome="Atendente Dois", matricula="A002", login="atendente2",
-                    senha_hash=ph.hash("Atend@123"), perfil=Perfil.ATENDENTE),
-            Guiche(numero_guiche=1),
-            Guiche(numero_guiche=2),
-            Guiche(numero_guiche=3),
-            EstadoFila(id=1),
-        ])
+        usuarios = [
+            Usuario(nome="Gestor", matricula="G001",
+                    login="gestor@nassau.com.br",
+                    senha_hash=ph.hash(SENHA_GESTOR), perfil=Perfil.GESTOR)
+        ]
+        hash_atendente = ph.hash(SENHA_ATENDENTE)  # um hash só: seed mais rápido
+        for i in range(1, 11):
+            usuarios.append(
+                Usuario(nome=f"Atendente {i}", matricula=f"A{i:03d}",
+                        login=f"usuario{i}@nassau.com.br",
+                        senha_hash=hash_atendente, perfil=Perfil.ATENDENTE)
+            )
+
+        db.session.add_all(usuarios)
+        db.session.add_all([Guiche(numero_guiche=n) for n in range(1, 11)])
+        db.session.add(EstadoFila(id=1))
         db.session.commit()
-        print("Seed aplicado com sucesso.")
+        print("Seed aplicado: 1 gestor, 10 atendentes e 10 guichês.")
 
 
 if __name__ == "__main__":
