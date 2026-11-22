@@ -11,5 +11,14 @@ class RegraNegocioError(Exception):
 class TransicaoInvalidaError(RegraNegocioError):
     status_code = 409
 
+
 class ForaDoExpedienteError(RegraNegocioError):
     status_code = 403
+
+
+class FilaVaziaError(RegraNegocioError):
+    status_code = 404
+
+
+class AtendenteOcupadoError(RegraNegocioError):
+    status_code = 409

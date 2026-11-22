@@ -13,3 +13,7 @@ class SenhaSchema(Schema):
     tipo_senha = fields.Function(lambda s: s.tipo_senha.value)
     status_atual = fields.Function(lambda s: s.status_atual.value)
     data_hora_emissao = fields.DateTime()
+
+class ChamarSchema(Schema):
+    usuario_id = fields.Integer(required=True)
+    guiche_id = fields.Integer(required=True)
