@@ -3,8 +3,10 @@ import Header from "../../components/Header";
 import safety_shield from "../../assets/safety_shield.svg";
 import check from "../../assets/check.svg";
 import "./LoginAtendente.css";
+import { useNavigate } from "react-router-dom";
 
 const LoginAtendente = () => {
+  const navigate = useNavigate();
   return (
     <>
       <Header />
@@ -41,7 +43,11 @@ const LoginAtendente = () => {
             <span className="portal-atendente">PORTAL DO ATENDENTE</span>
             <h3>Acesse sua estação</h3>
             <p>Entre com suas credenciais para iniciar o atendimento.</p>
-            <form className="login">
+            <form
+              className="login"
+              // Configurar validação de usuário
+              onSubmit={() => navigate("/atendente/dashboard")}
+            >
               <label htmlFor="email" className="email">
                 E-mail institucional
                 <input
