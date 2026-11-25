@@ -11,6 +11,8 @@ def agora() -> datetime:
 
 
 def dentro_do_expediente(momento: datetime) -> bool:
+    if current_app.config["EXPEDIENTE_LIVRE"]:
+        return True
     inicio = current_app.config["EXPEDIENTE_INICIO"]
     fim = current_app.config["EXPEDIENTE_FIM"]
     return inicio <= momento.hour < fim
