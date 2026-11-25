@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "../../components/Header";
 import atendimentoGeral from "../../assets/user.svg";
 import atendimentoPrioritario from "../../assets/atendimento_prioritario.svg";
@@ -10,18 +10,131 @@ import userX from "../../assets/user-x.svg";
 import volume from "../../assets/volume.svg";
 import megaphone from "../../assets/megaphone.svg";
 import greenCheck from "../../assets/check_verde.svg";
+import { useAuth } from "../../contexts/AuthContext";
+import { useAtendimento } from "../../hooks/useAtendimento";
+import { useAgora } from "../../hooks/useAgora";
 import "./DashboardAtendente.css";
+
+const GUICHES = Array.from({ length: 10 }, (_, i) => i + 1);
+
+// Tipo da API (SP/SG/SE) -> id usado pelo componente TipoDeSenha
+const TIPO_PARA_ID = { SP: "prioritario", SG: "geral", SE: "exames" };
+
+const ROTULO_STATUS = {
+  CHAMADA: "Chamada",
+  CHAMADA_NOVAMENTE: "Chamada novamente",
+  EM_ATENDIMENTO: "Em atendimento",
+  ATENDIDA: "Encerrado",
+  NAO_COMPARECEU: "Não compareceu",
+};
+
+function lerGuicheSalvo(chave) {
+  try {
+    const salvo = Number(localStorage.getItem(chave));
+    return GUICHES.includes(salvo) ? salvo : GUICHES[0];
+  } catch {
+    return GUICHES[0];
+  }
+}
+
+// "2026-11-25T09:42:10" -> "09:42"
+function formatarHora(iso) {
+  return iso ? iso.slice(11, 16) : "--:--";
+}
+
+// Segundos -> "mm:ss"
+function formatarContagem(totalSegundos) {
+  const m = Math.floor(totalSegundos / 60);
+  const s = totalSegundos % 60;
+  return `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
+}
 
 const DashboardAtendente = () => {
   const dataHoje = new Date().toLocaleDateString("pt-BR", {
     dateStyle: "long",
   });
 
-  const [totalPrioritario, setTotalPrioritario] = useState(0);
-  const [totalExames, setTotalExames] = useState(0);
-  const [totalGeral, setTotalGeral] = useState(0);
+  const { usuario, sair } = useAuth();
+  const chaveGuiche = `nassau_guiche_${usuario?.id}`;
+  const [guicheId, setGuicheId] = useState(() => lerGuicheSalvo(chaveGuiche));
+
+  const {
+    fila,
+    atual,
+    ultimas,
+    conectado,
+    carregando,
+    processando,
+    erro,
+    limparErro,
+    chamarProxima,
+    iniciar,
+    chamarNovamente,
+    naoCompareceu,
+    encerrar,
+    atualizar,
+  } = useAtendimento();
+
+  const alterarGuiche = (e) => {
+    const novo = Number(e.target.value);
+    setGuicheId(novo);
+    try {
+      localStorage.setItem(chaveGuiche, String(novo));
+    } catch {
+      // armazenamento indisponível: segue só em memória
+    }
+  };
+
+  const totalPrioritario = fila.SP;
+  const totalExames = fila.SE;
+  const totalGeral = fila.SG;
 
   const totalSenhas = totalPrioritario + totalGeral + totalExames;
+
+  // Regras da máquina de estados do backend
+  const status = atual?.status_atual;
+  const bloqueado = carregando || processando;
+  const podeIniciar = status === "CHAMADA" || status === "CHAMADA_NOVAMENTE";
+  const podeChamarNovamente = status === "CHAMADA";
+  const podeNaoCompareceu = status === "CHAMADA_NOVAMENTE";
+  const podeEncerrar = status === "EM_ATENDIMENTO";
+  const podeChamarProxima = !atual && totalSenhas > 0;
+
+  // Prazo de comparecimento (regra no backend): 1 min na 1ª chamada, depois a
+  // senha é chamada novamente e, após mais 1 min, expira (não compareceu).
+  const agora = useAgora();
+  const segundosRestantes =
+    atual?.fim_prazo != null
+      ? Math.min(
+          atual.prazo_segundos,
+          Math.max(0, Math.ceil((atual.fim_prazo - agora) / 1000)),
+        )
+      : null;
+  const prazoEsgotado = segundosRestantes === 0;
+
+  const dicaTempo =
+    status === "CHAMADA"
+      ? "até chamar novamente"
+      : status === "CHAMADA_NOVAMENTE"
+        ? "até a senha expirar"
+        : "";
+
+  // Zerou o relógio: pede o estado ao backend, que aplica a rechamada/expiração.
+  useEffect(() => {
+    if (!prazoEsgotado) return undefined;
+    const primeira = setTimeout(atualizar, 500);
+    const repetir = setInterval(atualizar, 2000);
+    return () => {
+      clearTimeout(primeira);
+      clearInterval(repetir);
+    };
+  }, [prazoEsgotado, atualizar]);
+
+  const textoProximaSenha = atual
+    ? "Finalize o atendimento atual para chamar a próxima senha."
+    : totalSenhas > 0
+      ? "Há senhas aguardando. Chame a próxima da fila."
+      : "Não há senhas aguardando no momento.";
 
   const resumoSenhasCard = [
     {
@@ -54,49 +167,6 @@ const DashboardAtendente = () => {
     },
   ];
 
-  const listaSenhas = [
-    {
-      id: 1,
-      sigla: "SP",
-      senha: "260930-SP042",
-      tipo: "prioritario",
-      horario: "09:42",
-      status: "Aguardando",
-    },
-    {
-      id: 2,
-      sigla: "SE",
-      senha: "260930-SE018",
-      tipo: "exames",
-      horario: "09:30",
-      status: "Encerrado",
-    },
-    {
-      id: 3,
-      sigla: "SG",
-      senha: "260930-SG037",
-      tipo: "geral",
-      horario: "09:23",
-      status: "Encerrado",
-    },
-    {
-      id: 4,
-      sigla: "SP",
-      senha: "260930-SP041",
-      tipo: "prioritario",
-      horario: "09:21",
-      status: "Não compareceu",
-    },
-    {
-      id: 5,
-      sigla: "SG",
-      senha: "260930-SG036",
-      tipo: "geral",
-      horario: "09:12",
-      status: "Encerrado",
-    },
-  ];
-
   return (
     <>
       <Header />
@@ -112,10 +182,40 @@ const DashboardAtendente = () => {
             <p className="data-hoje">{dataHoje}</p>
             <p className="unidade-guiche">
               Unidade Nassau -
-              <span className="guiche-atendente"> Guichê 01</span>
+              <select
+                className="seletor-guiche"
+                aria-label="Guichê"
+                value={guicheId}
+                onChange={alterarGuiche}
+                disabled={Boolean(atual)}
+              >
+                {GUICHES.map((n) => (
+                  <option key={n} value={n}>
+                    Guichê {String(n).padStart(2, "0")}
+                  </option>
+                ))}
+              </select>
+            </p>
+            <p className="usuario-logado">
+              {usuario?.nome}
+              <button type="button" className="sair-atendente" onClick={sair}>
+                Sair
+              </button>
             </p>
           </div>
         </section>
+        {erro && (
+          <div className="erro-dashboard" role="alert">
+            <span>{erro}</span>
+            <button
+              type="button"
+              onClick={limparErro}
+              aria-label="Fechar aviso"
+            >
+              ×
+            </button>
+          </div>
+        )}
         <section className="resumo-senhas">
           {resumoSenhasCard.map((card) => (
             <div className="card-resumo-senhas" key={card.id}>
@@ -138,28 +238,69 @@ const DashboardAtendente = () => {
             </div>
             <div className="senha-e-tempo-duracao">
               <div className="identificacao-senha">
-                <TipoDeSenha tipo={"prioritario"} detalhada />
-                <h3 className="senha-atual">260930-SP042</h3>
+                {atual ? (
+                  <>
+                    <TipoDeSenha
+                      tipo={TIPO_PARA_ID[atual.tipo_senha] ?? "geral"}
+                      detalhada
+                    />
+                    <h3 className="senha-atual">{atual.numero_senha}</h3>
+                  </>
+                ) : (
+                  <>
+                    <h3 className="senha-atual">--</h3>
+                    <span className="sem-senha-atual">
+                      Nenhuma senha em atendimento
+                    </span>
+                  </>
+                )}
               </div>
               <div className="tempo-de-espera">
                 <span>Tempo de espera</span>
-                <p className="wait-time">00:26</p>
+                <p
+                  className={`wait-time${
+                    segundosRestantes !== null && segundosRestantes <= 10
+                      ? " urgente"
+                      : ""
+                  }`}
+                >
+                  {segundosRestantes !== null
+                    ? formatarContagem(segundosRestantes)
+                    : "--:--"}
+                </p>
+                {dicaTempo && <small className="dica-tempo">{dicaTempo}</small>}
               </div>
             </div>
             <div className="acoes-senha">
-              <button className="iniciar-atendimento">
+              <button
+                className="iniciar-atendimento"
+                onClick={iniciar}
+                disabled={bloqueado || !podeIniciar}
+              >
                 <img src={play} />
                 Iniciar atendimento
               </button>
-              <button className="chamar-novamente">
+              <button
+                className="chamar-novamente"
+                onClick={chamarNovamente}
+                disabled={bloqueado || !podeChamarNovamente}
+              >
                 <img src={volume} />
                 Chamar novamente
               </button>
-              <button className="nao-compareceu">
+              <button
+                className="nao-compareceu"
+                onClick={naoCompareceu}
+                disabled={bloqueado || !podeNaoCompareceu}
+              >
                 <img src={userX} />
                 Não compareceu
               </button>
-              <button className="encerrar-atendimento">
+              <button
+                className="encerrar-atendimento"
+                onClick={encerrar}
+                disabled={bloqueado || !podeEncerrar}
+              >
                 <img src={circleCheck} />
                 Encerrar atendimento
               </button>
@@ -167,11 +308,13 @@ const DashboardAtendente = () => {
             <div className="proxima-chamada">
               <div className="orientacoes-proxima-senha">
                 <p>Próxima senha</p>
-                <span>
-                  Finalize o atendimento atual para chamar a próxima senha.
-                </span>
+                <span>{textoProximaSenha}</span>
               </div>
-              <button className="chamar-proxima-senha">
+              <button
+                className="chamar-proxima-senha"
+                onClick={() => chamarProxima(guicheId)}
+                disabled={bloqueado || !podeChamarProxima}
+              >
                 <img src={megaphone} />
                 Chamar próxima senha
               </button>
@@ -180,14 +323,23 @@ const DashboardAtendente = () => {
           <div className="ultimas-senhas-chamadas">
             <strong>Últimas senhas chamadas</strong>
             <ul className="lista-ultimas-senhas">
-              {listaSenhas.map((item) => (
+              {ultimas.length === 0 && (
+                <li className="senha-chamada-lista">
+                  <strong>Nenhuma senha chamada ainda.</strong>
+                </li>
+              )}
+              {ultimas.map((item) => (
                 <li className="senha-chamada-lista" key={item.id}>
-                  <TipoDeSenha tipo={item.tipo} />
-                  <strong>{item.senha}</strong>
+                  <TipoDeSenha
+                    tipo={TIPO_PARA_ID[item.tipo_senha] ?? "geral"}
+                  />
+                  <strong>{item.numero_senha}</strong>
                   <div className="horario-e-situacao">
-                    <span className="hora-chamada">{item.horario}</span>
+                    <span className="hora-chamada">
+                      {formatarHora(item.ultima_chamada_em)}
+                    </span>
                     <span className="situacao-senha-listada">
-                      {item.status}
+                      {ROTULO_STATUS[item.status_atual] ?? item.status_atual}
                     </span>
                   </div>
                 </li>
@@ -196,8 +348,14 @@ const DashboardAtendente = () => {
           </div>
         </section>
         <section className="status-painel">
-          <span className="conexao-painel">
-            <img src={greenCheck} /> Painel conectado
+          <span className={`conexao-painel${conectado ? "" : " sem-conexao"}`}>
+            {conectado ? (
+              <>
+                <img src={greenCheck} /> Painel conectado
+              </>
+            ) : (
+              "Sem conexão com o servidor"
+            )}
           </span>
           <span className="prioridade-alternancia">
             Prioridade e alternância aplicadas automaticamente · SP → SE | SG

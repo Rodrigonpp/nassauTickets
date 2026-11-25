@@ -8,3 +8,4 @@ class PainelItemSchema(Schema):
     guiche = fields.Integer(allow_none=True)
     ultima_chamada = fields.Boolean()
     chamada_em = fields.DateTime()
+    status_atual = fields.String()

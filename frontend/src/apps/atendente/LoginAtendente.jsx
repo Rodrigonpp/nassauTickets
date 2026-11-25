@@ -1,12 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "../../components/Header";
 import safety_shield from "../../assets/safety_shield.svg";
 import check from "../../assets/check.svg";
 import "./LoginAtendente.css";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
+import { useLogin } from "../../hooks/useLogin";
+import { useAuth } from "../../contexts/AuthContext";
 
 const LoginAtendente = () => {
   const navigate = useNavigate();
+  const { autenticado } = useAuth();
+  const { autenticar, loading, erro } = useLogin();
+
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
+  const [manterConectado, setManterConectado] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const sucesso = await autenticar({
+      login: email,
+      senha,
+      manterConectado,
+    });
+
+    if (sucesso) {
+      navigate("/atendente/dashboard", { replace: true });
+    }
+  };
+
+  if (autenticado) {
+    return <Navigate to="/atendente/dashboard" replace />;
+  }
   return (
     <>
       <Header />
@@ -43,14 +69,7 @@ const LoginAtendente = () => {
             <span className="portal-atendente">PORTAL DO ATENDENTE</span>
             <h3>Acesse sua estação</h3>
             <p>Entre com suas credenciais para iniciar o atendimento.</p>
-            <form
-              className="login"
-              // Configurar validação de usuário
-              onSubmit={(e) => {
-                e.preventDefault();
-                navigate("/atendente/dashboard");
-              }}
-            >
+            <form className="login" onSubmit={handleSubmit}>
               <label htmlFor="email" className="email">
                 E-mail institucional
                 <input
@@ -58,6 +77,10 @@ const LoginAtendente = () => {
                   name="email"
                   id="email"
                   placeholder="seu.email@nassau.com.br"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  autoComplete="username"
+                  required
                 />
               </label>
               <label htmlFor="senha" className="senha">
@@ -67,6 +90,10 @@ const LoginAtendente = () => {
                   name="senha"
                   id="senha"
                   placeholder="Digite sua senha"
+                  value={senha}
+                  onChange={(e) => setSenha(e.target.value)}
+                  autoComplete="current-password"
+                  required
                 />
               </label>
               <div className="opcoes-acesso">
@@ -75,12 +102,24 @@ const LoginAtendente = () => {
                     type="checkbox"
                     name="manter-conectado"
                     id="manter-conectado"
+                    checked={manterConectado}
+                    onChange={(e) => setManterConectado(e.target.checked)}
                   />
                   Manter conectado
                 </label>
                 <span className="esqueci-senha">Esqueci minha senha</span>
               </div>
-              <input type="submit" value="Entrar" className="submit" />
+              {erro && (
+                <p className="erro-login" role="alert">
+                  {erro}
+                </p>
+              )}
+              <input
+                type="submit"
+                value={loading ? "Entrando..." : "Entrar"}
+                className="submit"
+                disabled={loading}
+              />
             </form>
           </div>
           <span className="acesso-exclusivo">

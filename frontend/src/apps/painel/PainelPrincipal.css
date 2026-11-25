@@ -117,3 +117,32 @@
   font-weight: bolder;
   font-size: 1.1rem;
 }
+
+.rodape-chamada {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.painel-sem-conexao {
+  color: #b3261e;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.botao-narracao {
+  border: 2px solid #005c6d;
+  background-color: #fff;
+  color: #005c6d;
+  border-radius: 5rem;
+  padding: 0.6rem 1.4rem;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.botao-narracao.ativa {
+  background-color: #005c6d;
+  color: #fff;
+}

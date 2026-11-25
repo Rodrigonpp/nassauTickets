@@ -26,6 +26,7 @@ class PainelService:
                 "sequencial": senha.sequencial_diario,
                 "guiche": guiche.numero_guiche if guiche else None,
                 "ultima_chamada": aud.horario_segunda_chamada is not None,
+                "status_atual": senha.status_atual.value,
                 "chamada_em": (aud.horario_segunda_chamada or aud.horario_primeira_chamada),
             }
             for senha, aud, guiche in linhas

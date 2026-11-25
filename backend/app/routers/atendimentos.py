@@ -1,9 +1,14 @@
 from flask_smorest import Blueprint
 
 from app.core.seguranca import perfil_requerido, usuario_atual_id
-from app.schemas.senha_schema import ChamarSchema, SenhaSchema
+from app.schemas.senha_schema import (
+    ChamarSchema,
+    EstadoAtendenteSchema,
+    SenhaSchema,
+)
 from app.services.atendimento_service import AtendimentoService
 from app.services.chamada_service import ChamadaService
+from app.services.estado_atendente_service import EstadoAtendenteService
 
 blp = Blueprint(
     "atendimentos", __name__, url_prefix="/api/v1/atendimentos",
@@ -11,6 +16,12 @@ blp = Blueprint(
 )
 
 SEGURANCA = [{"bearerAuth": []}]
+
+
+@blp.before_request
+def aplicar_prazos():
+    """Antes de qualquer ação, expira/rechama as senhas que passaram do prazo."""
+    AtendimentoService().processar_prazos()
 
 
 @blp.route("/chamar-proximo", methods=["POST"])
@@ -57,3 +68,12 @@ def encerrar(senha_id):
 def nao_compareceu(senha_id):
     """Cliente não compareceu após as duas chamadas."""
     return AtendimentoService().nao_compareceu(senha_id, usuario_atual_id())
+
+
+@blp.route("/estado", methods=["GET"])
+@blp.response(200, EstadoAtendenteSchema)
+@blp.doc(security=SEGURANCA)
+@perfil_requerido("ATENDENTE")
+def estado():
+    """Fila por tipo, senha em andamento do atendente e últimas chamadas."""
+    return EstadoAtendenteService().obter(usuario_atual_id())

@@ -7,29 +7,35 @@ import "./App.css";
 import { NavigationProvider } from "./contexts/NavigationContext";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import DashboardAtendente from "./apps/atendente/DashboardAtendente";
+import { AuthProvider } from "./contexts/AuthContext";
+import RotaProtegida from "./components/RotaProtegida";
 
 function App() {
   return (
     <BrowserRouter>
       <NavigationProvider>
         <ThemeProvider>
-          <Routes>
-            {/* HOME */}
-            <Route path="/" element={<Home />} />
+          <AuthProvider>
+            <Routes>
+              {/* HOME */}
+              <Route path="/" element={<Home />} />
 
-            {/* PAINEL */}
-            <Route path="/painel" element={<PainelPrincipal />} />
+              {/* PAINEL */}
+              <Route path="/painel" element={<PainelPrincipal />} />
 
-            {/* TOTEM */}
-            <Route path="/totem" element={<TotemHome />} />
+              {/* TOTEM */}
+              <Route path="/totem" element={<TotemHome />} />
 
-            {/* ATENDENTE */}
-            <Route path="/atendente">
-              <Route path="login" element={<LoginAtendente />} />
+              {/* ATENDENTE */}
+              <Route path="/atendente">
+                <Route path="login" element={<LoginAtendente />} />
 
-              <Route path="dashboard" element={<DashboardAtendente />} />
-            </Route>
-          </Routes>
+                <Route element={<RotaProtegida />}>
+                  <Route path="dashboard" element={<DashboardAtendente />} />
+                </Route>
+              </Route>
+            </Routes>
+          </AuthProvider>
         </ThemeProvider>
       </NavigationProvider>
     </BrowserRouter>

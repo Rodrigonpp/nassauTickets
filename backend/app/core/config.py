@@ -28,6 +28,7 @@ class Config:
     FUSO_HORARIO = "America/Recife"
     # true = ignora o horário de expediente (só para demonstração)
     EXPEDIENTE_LIVRE = os.getenv("EXPEDIENTE_LIVRE", "false").lower() == "true"
+    PRAZO_CHAMADA_SEGUNDOS = int(os.getenv("PRAZO_CHAMADA_SEGUNDOS", "60"))
 
     # Documentação da API (OpenAPI/Swagger)
     API_TITLE = "NassauTickets API"

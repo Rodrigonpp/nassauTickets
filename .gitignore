@@ -150,5 +150,6 @@ __pycache__/
 
 backend.zip
 frontend.zip
+*.zip
 
 .vscode

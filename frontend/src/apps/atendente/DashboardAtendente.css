@@ -214,7 +214,6 @@
   border: 1px solid #0b5d63;
   cursor: pointer;
   opacity: 1;
-  cursor: not-allowed;
 }
 
 .acoes-senha .encerrar-atendimento img {
@@ -338,4 +337,83 @@
   font-size: 11px;
   color: #187a54;
   font-weight: 700;
+}
+
+.acoes-senha button:disabled,
+.chamar-proxima-senha:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.seletor-guiche {
+  margin-left: 0.4rem;
+  padding: 0.15rem 0.4rem;
+  border: 1px solid #cfdce5;
+  border-radius: 6px;
+  background-color: #fff;
+  color: #14202b;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.seletor-guiche:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.usuario-logado {
+  font-size: 0.8rem;
+  color: #536475;
+}
+
+.sair-atendente {
+  margin-left: 0.6rem;
+  padding: 0;
+  border: none;
+  background: none;
+  color: #005c6d;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.sem-senha-atual {
+  font-size: 0.9rem;
+  color: #536475;
+}
+
+.erro-dashboard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  background-color: #fdecea;
+  color: #b3261e;
+  font-size: 0.9rem;
+}
+
+.erro-dashboard button {
+  border: none;
+  background: none;
+  color: inherit;
+  font-size: 1.2rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.conexao-painel.sem-conexao {
+  color: #b3261e;
+}
+
+
+.senha-e-tempo-duracao .tempo-de-espera .wait-time.urgente {
+  color: #b3261e;
+}
+
+.dica-tempo {
+  font-size: 0.8rem;
+  color: #536475;
 }
