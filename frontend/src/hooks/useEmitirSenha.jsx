@@ -1,7 +1,7 @@
 import { useState, useCallback } from "react";
 
 const TIPOS_VALIDOS = ["SP", "SG", "SE"];
-const URL_SENHAS = "http://localhost:5000/api/v1/senhas";
+const URL_SENHAS = "/api/v1/senhas";
 
 function validarRespostaSenha(payload) {
   return Boolean(

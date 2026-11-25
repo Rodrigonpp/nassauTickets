@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const URL_PAINEL = "http://localhost:5000/api/v1/painel";
+const URL_PAINEL = "/api/v1/painel";
 const INTERVALO_ATUALIZACAO_MS = 3000;
 
 // GET /api/v1/painel (público): últimas 5 senhas chamadas, a mais recente primeiro

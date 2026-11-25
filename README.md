@@ -57,12 +57,10 @@ Na primeira vez leva alguns minutos (baixa as imagens e faz o build). O compose 
 
 | Serviço | URL |
 |---|---|
-| Front end | http://localhost:5173 |
-| API | http://localhost:5000/api/v1 |
-| Swagger (documentação) | http://localhost:5000/docs |
-| Health check | http://localhost:5000/api/v1/health |
-
-Use sempre `localhost`; os IPs `172.x.x.x` que aparecem nos logs são internos do Docker.
+| Front end | http://127.0.0.1:5173 |
+| API | http://127.0.0.1:5000/api/v1 |
+| Swagger (documentação) | http://127.0.0.1:5000/docs |
+| Health check | http://127.0.0.1:5000/api/v1/health |
 
 ### Demonstração fora do horário de expediente
 

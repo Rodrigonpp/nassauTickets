@@ -1,7 +1,7 @@
 import { useState, useCallback } from "react";
 import { useAuth } from "../contexts/AuthContext";
 
-const URL_LOGIN = "http://localhost:5000/api/v1/auth/login";
+const URL_LOGIN = "/api/v1/auth/login";
 
 export function useLogin() {
   const { entrar } = useAuth();

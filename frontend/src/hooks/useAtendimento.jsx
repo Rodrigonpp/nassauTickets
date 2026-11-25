@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 
-const URL_BASE = "http://localhost:5000/api/v1/atendimentos";
+const URL_BASE = "/api/v1/atendimentos";
 const INTERVALO_ATUALIZACAO_MS = 5000;
 const FILA_VAZIA = { SP: 0, SG: 0, SE: 0 };
 
