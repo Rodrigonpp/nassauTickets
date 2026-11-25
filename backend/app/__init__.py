@@ -1,11 +1,9 @@
 from flask import Flask
-from flask_smorest import Api
 from flask_cors import CORS
+from flask_smorest import Api
 
-from app.extensions import db, jwt, migrate
 from app.core.config import Config
-from app.extensions import db, migrate
-    
+from app.extensions import db, jwt, migrate
 
 
 def create_app(config_class=Config):
@@ -26,17 +24,21 @@ def create_app(config_class=Config):
 
     api = Api(app)
 
-    from app.routers.health import blp as health_blp
-    from app.routers.senhas import blp as senhas_blp
+    from app.routers.admin import blp as admin_blp
     from app.routers.atendimentos import blp as atendimentos_blp
-    from app.routers.painel import blp as painel_blp
     from app.routers.auth import blp as auth_blp
-    
-    api.register_blueprint(auth_blp)
-    api.register_blueprint(painel_blp)
-    api.register_blueprint(atendimentos_blp)
+    from app.routers.health import blp as health_blp
+    from app.routers.painel import blp as painel_blp
+    from app.routers.relatorios import blp as relatorios_blp
+    from app.routers.senhas import blp as senhas_blp
+
     api.register_blueprint(health_blp)
+    api.register_blueprint(auth_blp)
     api.register_blueprint(senhas_blp)
+    api.register_blueprint(atendimentos_blp)
+    api.register_blueprint(painel_blp)
+    api.register_blueprint(relatorios_blp)
+    api.register_blueprint(admin_blp)
 
     from app.core.exceptions import RegraNegocioError
 
