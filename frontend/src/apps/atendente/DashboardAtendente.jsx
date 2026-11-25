@@ -9,6 +9,8 @@ import play from "../../assets/play.svg";
 import userX from "../../assets/user-x.svg";
 import volume from "../../assets/volume.svg";
 import megaphone from "../../assets/megaphone.svg";
+import greenCheck from "../../assets/check_verde.svg";
+import "./DashboardAtendente.css";
 
 const DashboardAtendente = () => {
   const dataHoje = new Date().toLocaleDateString("pt-BR", {
@@ -141,26 +143,26 @@ const DashboardAtendente = () => {
               </div>
               <div className="tempo-de-espera">
                 <span>Tempo de espera</span>
-                <span className="wait-time">00:26</span>
+                <p className="wait-time">00:26</p>
               </div>
-              <div className="acoes-senha">
-                <button className="iniciar-atendimento">
-                  <img src={play} />
-                  Iniciar atendimento
-                </button>
-                <button className="chamar-novamente">
-                  <img src={volume} />
-                  Chamar novamente
-                </button>
-                <button className="nao-compareceu">
-                  <img src={userX} />
-                  Não compareceu
-                </button>
-                <button className="Encerrar atendimento">
-                  <img src={circleCheck} />
-                  Encerrar atendimento
-                </button>
-              </div>
+            </div>
+            <div className="acoes-senha">
+              <button className="iniciar-atendimento">
+                <img src={play} />
+                Iniciar atendimento
+              </button>
+              <button className="chamar-novamente">
+                <img src={volume} />
+                Chamar novamente
+              </button>
+              <button className="nao-compareceu">
+                <img src={userX} />
+                Não compareceu
+              </button>
+              <button className="encerrar-atendimento">
+                <img src={circleCheck} />
+                Encerrar atendimento
+              </button>
             </div>
             <div className="proxima-chamada">
               <div className="orientacoes-proxima-senha">
@@ -193,7 +195,14 @@ const DashboardAtendente = () => {
             </ul>
           </div>
         </section>
-        <section className="status-painel"></section>
+        <section className="status-painel">
+          <span className="conexao-painel">
+            <img src={greenCheck} /> Painel conectado
+          </span>
+          <span className="prioridade-alternancia">
+            Prioridade e alternância aplicadas automaticamente · SP → SE | SG
+          </span>
+        </section>
       </div>
     </>
   );

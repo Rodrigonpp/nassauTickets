@@ -46,7 +46,10 @@ const LoginAtendente = () => {
             <form
               className="login"
               // Configurar validação de usuário
-              onSubmit={() => navigate("/atendente/dashboard")}
+              onSubmit={(e) => {
+                e.preventDefault();
+                navigate("/atendente/dashboard");
+              }}
             >
               <label htmlFor="email" className="email">
                 E-mail institucional
