@@ -1,0 +1,31 @@
+.tipo {
+  font-weight: bold;
+  width: fit-content;
+  padding: 5px 10px;
+  text-align: center;
+  border-radius: 1rem;
+  opacity: 0.9;
+  display: flex;
+  justify-content: center;
+  column-gap: 1px;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+.tipo.prioritario {
+  color: #8a3d12;
+  background-color: #fce9dc;
+  border: 1px solid #8a3d12;
+}
+
+.tipo.geral {
+  background-color: #e4f1fa;
+  border: 1px solid #185e8a;
+  color: #185e8a;
+}
+
+.tipo.exames {
+  background-color: #efe8fa;
+  border: 1px solid #5c3a8a;
+  color: #5c3a8a;
+}

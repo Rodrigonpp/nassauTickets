@@ -1,0 +1,419 @@
+#dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  flex: 1;
+  background-color: #edf3f5;
+}
+
+.dashboard-presentation {
+  display: flex;
+  justify-content: space-between;
+}
+
+.central-atendimento {
+  font-size: 28px;
+  font-weight: bold;
+  color: #003d49;
+}
+
+.central-atendimento-subtitle {
+  color: #536475;
+  font-size: 0.9rem;
+}
+
+.informacoes-atendente {
+  text-align: right;
+}
+
+.data-hoje {
+  color: #14202b;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.unidade-guiche {
+  font-size: 0.8rem;
+  color: #536475;
+}
+
+.resumo-senhas {
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+}
+
+.card-resumo-senhas {
+  background-color: #fff;
+  padding: 1rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border: 1px solid #cfdce5;
+  border-radius: 1rem;
+  flex: 1;
+}
+
+.card-resumo-senhas .categoria {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #536475;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.card-resumo-senhas .quantidade-fila p {
+  color: #14202b;
+  font-weight: bold;
+  font-size: 1.7rem;
+}
+
+.card-resumo-senhas .quantidade-fila p span {
+  font-size: 0.7rem;
+  color: #536475;
+  font-weight: normal;
+}
+
+.atendimento-ultimas-chamadas {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.senha-atual-opcoes {
+  display: flex;
+  flex-direction: column;
+  flex: 1.5;
+  gap: 1.2rem;
+  background-color: #fff;
+  border: 1px solid #cfdce5;
+  padding: 1.5rem;
+  border-radius: 1rem;
+}
+
+.estado-senha {
+  display: flex;
+}
+
+.senha-atual-title {
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 2rem;
+  color: #14202b;
+}
+
+.senha-e-tempo-duracao {
+  display: flex;
+  justify-content: space-between;
+}
+
+.senha-e-tempo-duracao .identificacao-senha {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+}
+
+.senha-e-tempo-duracao .identificacao-senha .senha-atual {
+  font-size: 2.5rem;
+  color: #14202b;
+  font-weight: bolder;
+}
+
+.senha-e-tempo-duracao .tempo-de-espera {
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+}
+
+.senha-e-tempo-duracao .tempo-de-espera span {
+  font-size: 0.9rem;
+  color: #536475;
+}
+
+.senha-e-tempo-duracao .tempo-de-espera .wait-time {
+  color: #8a4b00;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.acoes-senha {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.acoes-senha button {
+  width: 100%;
+  min-width: 0;
+  padding: 1rem;
+  border-radius: 8px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  white-space: nowrap;
+  opacity: 0.9;
+}
+
+.acoes-senha button:hover {
+  opacity: 1;
+}
+
+.ultimas-senhas-chamadas {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  background-color: #fff;
+  border: 1px solid #cfdce5;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  gap: 1rem;
+}
+
+.acoes-senha button img {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.iniciar-atendimento {
+  background-color: #0b5d63;
+  color: #ffffff;
+  border: 1px solid #0b5d63;
+}
+
+.chamar-novamente {
+  background-color: #ffffff;
+  color: #005c6d;
+  border: 1px solid #005c6d;
+}
+
+.chamar-novamente:hover {
+  background-color: #f4f7f6;
+}
+
+.nao-compareceu {
+  background-color: #fdf2f2;
+  color: #a12a2a;
+  border: 1px solid #d8baba;
+}
+
+.nao-compareceu:hover {
+  background-color: #fbe4e4;
+}
+
+.acoes-senha .encerrar-atendimento {
+  background-color: #0b5d63;
+  color: #ffffff;
+  border: 1px solid #0b5d63;
+  cursor: pointer;
+  opacity: 1;
+}
+
+.acoes-senha .encerrar-atendimento img {
+  filter: brightness(0) invert(1);
+  opacity: 1;
+}
+
+.proxima-chamada {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-top: 16px;
+  border-top: 1px solid #edf1f0;
+}
+
+.orientacoes-proxima-senha {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.orientacoes-proxima-senha p {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #14202b;
+}
+
+.orientacoes-proxima-senha span {
+  font-size: 0.8rem;
+  color: #536475;
+}
+
+.chamar-proxima-senha {
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px solid #0b5d63;
+  background-color: #0b5d63;
+  color: #ffffff;
+  font-size: 0.9rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  opacity: 0.9;
+}
+
+.chamar-proxima-senha img {
+  width: 15px;
+  height: 15px;
+  object-fit: contain;
+  flex-shrink: 0;
+  filter: brightness(0) invert(1);
+}
+
+.chamar-proxima-senha:hover {
+  opacity: 1;
+}
+
+.status-painel {
+  display: flex;
+  justify-content: space-between;
+  margin-top: auto;
+}
+
+.conexao-painel {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #187a54;
+  font-weight: 600;
+  font-size: 0.8rem;
+}
+
+.prioridade-alternancia {
+  color: #536475;
+  font-size: 0.8rem;
+}
+
+.ultimas-senhas-chamadas strong {
+  color: #14202b;
+  font-size: 1.2rem;
+}
+
+.lista-ultimas-senhas {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  flex: 1;
+  justify-content: space-between;
+}
+
+.senha-chamada-lista {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px;
+  gap: 12px;
+  align-items: center;
+}
+
+.senha-chamada-lista strong {
+  text-align: left;
+  flex: 1;
+  color: #14202b;
+  font-size: 0.9rem;
+}
+
+.horario-e-situacao {
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+}
+
+.hora-chamada {
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.situacao-senha-listada {
+  font-size: 11px;
+  color: #187a54;
+  font-weight: 700;
+}
+
+.acoes-senha button:disabled,
+.chamar-proxima-senha:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.seletor-guiche {
+  margin-left: 0.4rem;
+  padding: 0.15rem 0.4rem;
+  border: 1px solid #cfdce5;
+  border-radius: 6px;
+  background-color: #fff;
+  color: #14202b;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.seletor-guiche:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.usuario-logado {
+  font-size: 0.8rem;
+  color: #536475;
+}
+
+.sair-atendente {
+  margin-left: 0.6rem;
+  padding: 0;
+  border: none;
+  background: none;
+  color: #005c6d;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.sem-senha-atual {
+  font-size: 0.9rem;
+  color: #536475;
+}
+
+.erro-dashboard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  background-color: #fdecea;
+  color: #b3261e;
+  font-size: 0.9rem;
+}
+
+.erro-dashboard button {
+  border: none;
+  background: none;
+  color: inherit;
+  font-size: 1.2rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.conexao-painel.sem-conexao {
+  color: #b3261e;
+}
+
+
+.senha-e-tempo-duracao .tempo-de-espera .wait-time.urgente {
+  color: #b3261e;
+}
+
+.dica-tempo {
+  font-size: 0.8rem;
+  color: #536475;
+}

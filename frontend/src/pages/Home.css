@@ -1,0 +1,116 @@
+#Home {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 100px;
+  background-color: #eef3f6;
+  flex: 1;
+}
+
+.presentation-home {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  text-align: center;
+}
+
+.presentation-home .greetings-home {
+  color: #005c6d;
+  font-weight: bold;
+  letter-spacing: 1.5px;
+}
+
+.presentation-home .main-title {
+  font-size: 3rem;
+  font-weight: 500;
+}
+
+.presentation-home .subtitle {
+  font-size: 1rem;
+  color: #536475;
+}
+
+.aviso-atendente {
+  display: flex;
+  gap: 3px;
+  color: #536475;
+  font-size: 0.9rem;
+}
+
+.aviso-atendente img {
+  width: 1rem;
+  height: 1rem;
+}
+
+.perfis {
+  display: flex;
+  gap: 1.5rem;
+  max-width: 1300px;
+}
+
+.perfil {
+  background-color: #fff;
+  border: 1px solid #dce5eb;
+  padding: 28px;
+  border-radius: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.perfil .header-perfil {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.perfil .subtitulo {
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: #005c6d;
+}
+
+.perfil .img-perfil {
+  width: 45px;
+  height: 45px;
+  border-radius: 10px;
+}
+
+.descricao-perfil {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.descricao-perfil .perfil-titulo {
+  text-transform: capitalize;
+  font-size: 1.7rem;
+}
+
+.descricao-perfil .descricao {
+  color: #536475;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.btn-perfil {
+  background-color: #005c6d;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  border: none;
+  height: 50px;
+  border-radius: 1rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  opacity: 0.9;
+  transition: 0.3s;
+}
+
+.btn-perfil:hover {
+  opacity: 1;
+}

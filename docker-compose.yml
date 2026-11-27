@@ -1,0 +1,55 @@
+services:
+  db:
+    image: mysql:8.0
+    container_name: nassau_db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-root123}
+      MYSQL_DATABASE: ${DB_NAME:-nassau_tickets}
+      MYSQL_USER: ${DB_USER:-nassau}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-nassau123}
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -p$$MYSQL_ROOT_PASSWORD --silent"]
+      interval: 5s
+      timeout: 5s
+      retries: 40
+      start_period: 60s
+
+  backend:
+    build: ./backend
+    container_name: nassau_backend
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+    environment:
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_NAME: ${DB_NAME:-nassau_tickets}
+      DB_USER: ${DB_USER:-nassau}
+      DB_PASSWORD: ${DB_PASSWORD:-nassau123}
+      JWT_SECRET: ${JWT_SECRET:-troque-esse-segredo-por-um-valor-longo-e-aleatorio}
+      JWT_EXPIRE_MINUTES: ${JWT_EXPIRE_MINUTES:-60}
+      EXPEDIENTE_LIVRE: ${EXPEDIENTE_LIVRE:-false}
+    depends_on:
+      db:
+        condition: service_healthy
+    command: >
+      sh -c "flask --app wsgi db upgrade -d database/migrations &&
+             python -m database.seed &&
+             flask --app wsgi run --host=0.0.0.0 --port=5000"
+
+  frontend:
+    build: ./frontend
+    container_name: nassau_frontend
+    restart: unless-stopped
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
+
+volumes:
+  mysql_data:

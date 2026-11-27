@@ -141,3 +141,15 @@ dist
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 .vite/
+
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+.env
+
+backend.zip
+frontend.zip
+*.zip
+
+.vscode

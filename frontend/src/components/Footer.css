@@ -1,0 +1,19 @@
+#Footer {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  padding: 5px 1.5rem;
+  justify-content: space-between;
+  flex-shrink: 0;
+  background-color: #003d49;
+  color: #fff;
+}
+
+.accessibility {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  text-align: center;
+  padding: 5px;
+  cursor: pointer;
+}

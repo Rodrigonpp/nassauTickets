@@ -1,0 +1,131 @@
+.totemHome {
+  background-color: #eef3f6;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  row-gap: 30px;
+  align-items: center;
+  padding: 2rem;
+}
+
+.greetings {
+  text-align: center;
+}
+
+.greetings h2 {
+  font-weight: 500;
+  font-size: 2rem;
+}
+
+.greetings p {
+  font-size: 1.1rem;
+  color: #536475;
+}
+
+.retirada-de-senha {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  row-gap: 1.2rem;
+}
+
+.seta {
+  width: 40px;
+  height: 40px;
+}
+
+.tipo-title {
+  color: #14202b;
+  font-size: 1.5rem;
+}
+
+.subtitle {
+  color: #536475;
+  font-size: 0.9rem;
+}
+
+.card {
+  background-color: #fff;
+  width: 80%;
+  max-width: 680px;
+  height: 160px;
+  border-radius: 1.5rem;
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  column-gap: 1rem;
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.card.prioritario {
+  border: 2px solid #8a3d12;
+}
+
+.card.prioritario:hover {
+  background-color: #fcf1e9;
+  transform: translateY(-2px);
+}
+
+.card.geral {
+  border: 2px solid #185e8a;
+}
+
+.card.geral:hover {
+  background-color: #e0eaff;
+  transform: translateY(-2px);
+}
+
+.card.exames {
+  border: 2px solid #5c3a8a;
+}
+
+.card.exames:hover {
+  background-color: #e7e2ec;
+  transform: translateY(-2px);
+}
+
+.icon-atendimento {
+  height: 5rem;
+  width: 5rem;
+  border-radius: 1rem;
+  padding: 10px;
+  flex-shrink: 0;
+}
+
+.icon-prioritario {
+  background-color: #fce9dc;
+}
+
+.icon-geral {
+  background-color: #e4f1fa;
+}
+
+.icon-exames {
+  background-color: #efe8fa;
+}
+
+.informacoes-atendimento {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+}
+
+.informativo {
+  background-color: #dceff2;
+  padding: 1rem;
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.informativo span {
+  color: #003D49;
+  
+}

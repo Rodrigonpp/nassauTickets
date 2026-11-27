@@ -1,0 +1,148 @@
+#painel-principal {
+  background-color: #003d49;
+  flex: 1;
+  display: flex;
+  padding: 2rem;
+  gap: 2rem;
+  width: 100%;
+}
+
+.section-chamada-atual {
+  background-color: #fff;
+  flex: 2;
+  border-radius: 1.5rem;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.situacao {
+  display: flex;
+  width: fit-content;
+  align-items: center;
+  gap: 0.8rem;
+  background-color: #fff1d6;
+  color: #a35700;
+  font-size: 18px;
+  padding: 10px 20px;
+  border-radius: 5rem;
+}
+
+.chamada-atual {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.senha-chamada {
+  padding: 2rem 0;
+  border-bottom: 2px solid #cbd6de;
+  font-size: 5rem;
+  color: #003d49;
+  font-weight: bold;
+}
+
+.instrucoes {
+  color: #536475;
+  font-size: 1.8rem;
+  margin: 1.8rem;
+}
+
+.guiche {
+  color: #8a3d12;
+  font-size: 4rem;
+  font-weight: bold;
+}
+
+.documentos {
+  color: #005c6d;
+  font-size: 17px;
+  font-weight: bold;
+}
+
+.ultimas-chamadas {
+  background-color: #f3f7f8;
+  flex: 1;
+  border-radius: 1.5rem;
+  padding: 1.5rem;
+}
+
+.ultimas-chamadas h4 {
+  font-size: 28px;
+  color: #14202b;
+  font-weight: normal;
+}
+
+.ultimas-chamadas .ultimas-span {
+  color: #536475;
+  font-size: 0.9rem;
+}
+
+.lista-ultimas-chamadas {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  margin-top: 0.8rem;
+}
+
+.chamada {
+  background-color: #fff;
+  border: 1px solid #cbd6de;
+  border-radius: 1rem;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.informacoes-chamada {
+  color: #14202b;
+  flex: 1;
+}
+
+.informacoes-chamada p {
+  font-size: 1.4rem;
+}
+
+.informacoes-chamada span {
+  font-size: 0.9rem;
+  color: #536475;
+}
+
+.ultimas-guiche {
+  color: #005c6d;
+  font-weight: bolder;
+  font-size: 1.1rem;
+}
+
+.rodape-chamada {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.painel-sem-conexao {
+  color: #b3261e;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.botao-narracao {
+  border: 2px solid #005c6d;
+  background-color: #fff;
+  color: #005c6d;
+  border-radius: 5rem;
+  padding: 0.6rem 1.4rem;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.botao-narracao.ativa {
+  background-color: #005c6d;
+  color: #fff;
+}
